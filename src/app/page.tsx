@@ -1,7 +1,7 @@
 // pages/index.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import Image from "next/image";
 
@@ -26,6 +26,7 @@ export default function Home() {
   const [mode, setMode] = useState<"toPoints" | "toQuantity">("toPoints");
   const [inputValue, setInputValue] = useState("");
   const [result, setResult] = useState<number | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const selectedExercise = exercises[exerciseIndex];
 
@@ -41,6 +42,14 @@ export default function Home() {
       setResult(value * selectedExercise.qty_per_point);
     }
   }, [inputValue, mode, selectedExercise]);
+
+  function handleFocus() {
+    if (window.innerWidth < 768 && inputRef.current) {
+      setTimeout(() => {
+        inputRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 200);
+    }
+  }
 
   return (
     <>
@@ -98,10 +107,12 @@ export default function Home() {
                 : `Quanto você fez de ${selectedExercise.name}? (${selectedExercise.unit})`}
             </label>
             <input
+              ref={inputRef}
               type="number"
               className="w-full mt-1 border border-gray-300 rounded p-2"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
+              onFocus={handleFocus}
             />
           </div>
 
