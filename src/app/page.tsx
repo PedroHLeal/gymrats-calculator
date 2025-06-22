@@ -12,6 +12,7 @@ const exercises = [
   { name: "Corrida Esteira", qty_per_point: 0.7, unit: "km" },
   { name: "Escada Máquina", qty_per_point: 6, unit: "min" },
   { name: "Ciclismo", qty_per_point: 3, unit: "km" },
+  { name: "Elíptico", qty_per_point: 8, unit: "min" },
   // Adicione mais aqui
 ];
 
